@@ -12,9 +12,30 @@ sudo apt upgrade -y
 ```bash
 sudo apt install -y nodejs
 ```
-### Install MongoDB
+## Install MongoDB
+### Download the libssl1.1_1.1.1f-1ubuntu2_amd64.deb from official repository
 ```bash
-sudo apt install -y mongodb
+wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb
+```
+### Install the downloaded libss version 
+```bash
+sudo dpkg -i libssl1.1_1.1.1f-1ubuntu2_amd64.deb
+```
+### import the MongoDB public GPG Key
+```bash
+wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo tee -
+```
+### Next create a list file for Mongodb
+```bash
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+```
+### Update local package database
+```bash
+sudo apt-get update
+```
+### Continue with MongoDB installation
+```bash
+sudo apt-get install -y mongodb-org
 ```
 ### start the server
 ```bash
@@ -57,7 +78,7 @@ app.listen(app.get('port'), function() {
     console.log('Server up: http://localhost:' + app.get('port'));
 });
 ```
-## Installing Express and setting up routes
+### Installing Express and setting up routes
 ### To work with Mongoose package, a schema based solution for application data to store data of our book register
 ```bash
 sudo npm install express mongoose
